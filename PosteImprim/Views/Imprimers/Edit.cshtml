@@ -1,0 +1,195 @@
+﻿@model PosteImprim.Models.Imprimer
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modifier l'Impression</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        /* Palette personnalisée pour La Poste Tunisienne */
+        :root {
+            --primary-color: #004080; /* Bleu foncé inspiré du logo */
+            --secondary-color: #FFD700; /* Jaune inspiré du logo */
+            --light-bg: #F8F9FA; /* Couleur de fond douce */
+            --text-color: #333; /* Couleur du texte */
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .btn-primary, .btn-secondary {
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+            .btn-primary:hover {
+                background-color: #00264d;
+                border-color: #00264d;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: #000;
+        }
+
+            .btn-secondary:hover {
+                background-color: #ffc700;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            }
+
+        .form-group label {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+            footer a {
+                color: var(--secondary-color);
+                text-decoration: none;
+            }
+
+                footer a:hover {
+                    text-decoration: underline;
+                }
+
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+            .form-container:hover {
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            }
+
+        .logo {
+            max-width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .input-group-text {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+            .input-group .input-group-prepend {
+                margin-right: 10px; /* Ajout d'espacement entre icône et champ */
+            }
+
+        .form-control:focus {
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .text-danger {
+            color: red;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .alert {
+            padding: 15px;
+            background-color: #f44336; /* Red */
+            color: white;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+            .alert i {
+                margin-right: 10px;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="~/images/logo blanc.png" alt="Logo de La Poste Tunisienne" class="logo" />
+        <h1>Modifier l'Impression</h1>
+    </header>
+
+    <div class="form-container">
+        <h2 class="mb-4 text-center">Modifier l'Impression</h2>
+
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="DateImpression" class="control-label"></label>
+                <input asp-for="DateImpression" class="form-control" />
+                <span asp-validation-for="DateImpression" class="text-danger"></span>
+            </div>
+
+            <div id="textEntries">
+                @for (int i = 0; i < Model.Positions.Count; i++)
+                {
+                    <div class="form-group mb-3">
+                        <label>Texte :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-font"></i></span>
+                            </div>
+                            <input asp-for="Positions[@i].Text" class="form-control" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">
+                <i class="fas fa-save"></i> Save
+            </button>
+            <a asp-action="Index" class="btn btn-secondary mb-3">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </form>
+    </div>
+
+    <footer>
+        &copy; 2025 - PosteImprim | <a href="#">Politique de confidentialité</a>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

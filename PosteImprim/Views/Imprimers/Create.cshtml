@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> PostImprim Olivetti</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        /* Palette personnalisée pour La Poste Tunisienne */
+        :root {
+            --primary-color: #003366; /* Bleu foncé inspiré du logo */
+            --secondary-color: #FFD700; /* Jaune inspiré du logo */
+            --light-bg: #B7CBE9; /* Couleur de fond douce */
+            --text-color: #333; /* Couleur du texte */
+        }
+
+        body {
+            background-color: #B7CBE9; /* Changer le fond de la page en blanc */
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border-radius: 15px; /* Ajout de la propriété border-radius pour arrondir les bords du fond */
+        }
+
+        .btn-primary, .btn-secondary {
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 50px; /* Rendre les boutons plus arrondis */
+            position: relative; /* Pour les rendre flottants */
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+            .btn-primary:hover {
+                background-color: #00264d;
+                border-color: #00264d;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: #000;
+        }
+
+            .btn-secondary:hover {
+                background-color: #ffc700;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            }
+
+        .form-group label {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        header {
+            background-color: #E5F0FF; /* Changer le fond du header en blanc */
+            color: var(--primary-color); /* Couleur du texte du header */
+            padding: 10px; /* Réduire l'espace de padding */
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px; /* Ajout de la propriété border-radius pour arrondir les bords de l'en-tête */
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: #B7CBE9;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px; /* Ajout de la propriété border-radius pour arrondir les bords du pied de page */
+        }
+
+            footer a {
+                color: var(--secondary-color);
+                text-decoration: none;
+            }
+
+                footer a:hover {
+                    text-decoration: underline;
+                }
+
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #E5F0FF; /* Fond blanc */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px; /* Ajout de la propriété border-radius pour arrondir les bords du conteneur de formulaire */
+            transition: all 0.3s ease;
+        }
+
+            .form-container:hover {
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            }
+
+        .logo {
+            max-width: 100px;
+            margin-bottom: 10px; /* Réduire l'espace de marge au bas du logo */
+        }
+
+        .input-group-text {
+            background-color: var(--primary-color);
+            color: #E5F0FF;
+            border: none;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+            .input-group .input-group-prepend {
+                margin-right: 5px; /* Rapprocher l'icône du champ input */
+            }
+
+        .form-control:focus {
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .text-danger {
+            color: red;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .alert {
+            padding: 15px;
+            background-color: #f44336; /* Red */
+            color: white;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+            .alert i {
+                margin-right: 10px;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="~/images/logo blanc.png" alt="Logo de La Poste Tunisienne" class="logo" />
+        <h1>La Poste Tunisienne</h1>
+    </header>
+
+    <div class="form-container">
+        <h2 class="mb-4 text-center">Nouvelle Impression</h2>
+
+        <form asp-action="CreateAndPrint" method="post" onsubmit="return validateForm()">
+            <div id="textEntries">
+                <div class="form-group mb-3">
+                    <label>Texte :</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-font"></i></span>
+                        </div>
+                        <input name="TextEntries" class="form-control" placeholder="TypeMandat|Version navigateur: 5.0 | X | Y" />
+                    </div>
+                </div>
+            </div>
+            <div id="validation-message" class="alert" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i> <span>Le champ de texte ne peut pas être vide. Veuillez remplir tous les champs avant de soumettre.</span>
+            </div>
+
+            <button type="button" class="btn btn-secondary mb-3" onclick="addTextEntry()">
+                <i class="fas fa-plus-circle"></i> Ajouter un texte
+            </button>
+            <button type="submit" class="btn btn-primary mb-3">
+                <i class="fas fa-print"></i> Imprimer
+            </button>
+        </form>
+
+        <div class="text-center">
+            <a asp-action="Index" class="btn btn-outline-primary">
+                <i class="fas fa-history"></i> Historique d'impression
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function addTextEntry() {
+            var textEntriesDiv = document.getElementById('textEntries');
+            var newTextEntry = document.createElement('div');
+            newTextEntry.className = 'form-group mb-3';
+            newTextEntry.innerHTML = `
+                <label>Texte :</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-font"></i></span>
+                    </div>
+                    <input name="TextEntries" class="form-control" placeholder="TypeMandat|Version navigateur: 5.0 | X | Y" />
+                </div>
+            `;
+            textEntriesDiv.appendChild(newTextEntry);
+        }
+
+        function validateForm() {
+            var textEntries = document.getElementsByName('TextEntries');
+            var validationMessage = document.getElementById('validation-message');
+            for (var i = 0; i < textEntries.length; i++) {
+                if (textEntries[i].value.trim() === '') {
+                    validationMessage.style.display = 'block';
+                    return false;
+                }
+            }
+            validationMessage.style.display = 'none';
+            return true;
+        }
+    </script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

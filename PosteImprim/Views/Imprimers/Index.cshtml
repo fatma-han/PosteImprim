@@ -1,0 +1,100 @@
+﻿@model IEnumerable<PosteImprim.Models.Imprimer>
+
+<h2 class="text-center">Impressions Réalisées</h2>
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr style="background-color: #004080; color: #FFD700;">
+            <th class="text-center">X</th>
+            <th class="text-center">Y</th>
+            <th class="text-center">Texte</th>
+            <th class="text-center">Actions</th>
+            <th class="text-center">ID Impression</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var imprimer in Model)
+        {
+            @foreach (var position in imprimer.Positions)
+            {
+                <tr class="table-row">
+                    <td class="text-center">@position.X</td>
+                    <td class="text-center">@position.Y</td>
+                    <td class="text-center">@position.Text</td>
+                    <td class="text-center">
+                        <a asp-action="Details" asp-route-id="@imprimer.Id" class="btn btn-outline-info btn-sm mx-1 rounded-pill">
+                            <i class="fas fa-info-circle"></i> Détails
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@imprimer.Id" class="btn btn-outline-danger btn-sm mx-1 rounded-pill">
+                            <i class="fas fa-trash-alt"></i> Supprimer
+                        </a>
+                    </td>
+                    <td class="text-center">@imprimer.Id</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div class="text-center">
+    <!-- Bouton Create -->
+    <a asp-action="Create" class="btn btn-primary mt-3 rounded-pill">
+        <i class="fas fa-plus-circle"></i>Créer Nouvelle Impression
+    </a>
+
+    <!-- Bouton Export -->
+    <a asp-action="ExportToExcel" class="btn btn-success mt-3 mx-2 rounded-pill">
+        <i class="fas fa-file-excel"></i> Exporter Historique vers Excel
+    </a>
+</div>
+
+<style>
+    /* Hover effect for table rows with floating animation */
+    .table-row {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .table-row:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: #f1f1f1;
+        }
+
+    /* Custom button colors */
+    .btn-outline-info {
+        color: #004080;
+        border-color: #004080;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #004080;
+            color: #FFD700;
+        }
+
+    .btn-outline-danger {
+        color: #d9534f;
+        border-color: #d9534f;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #d9534f;
+            color: #fff;
+        }
+
+    .btn-success {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+    .rounded-pill {
+        border-radius: 50px !important;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />

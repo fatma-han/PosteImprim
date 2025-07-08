@@ -1,0 +1,87 @@
+﻿@model PosteImprim.Models.Imprimer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center my-4">Details</h1>
+
+<div class="card shadow-lg">
+    <div class="card-body">
+        <h4 class="card-title text-center text-primary mb-4">Imprimer</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3 text-right font-weight-bold">
+                Id
+            </dt>
+            <dd class="col-sm-9">
+                @Model.Id
+            </dd>
+
+            @foreach (var position in Model.Positions)
+            {
+                <dt class="col-sm-3 text-right font-weight-bold">
+                    X
+                </dt>
+                <dd class="col-sm-9">
+                    @position.X
+                </dd>
+                <dt class="col-sm-3 text-right font-weight-bold">
+                    Y
+                </dt>
+                <dd class="col-sm-9">
+                    @position.Y
+                </dd>
+                <dt class="col-sm-3 text-right font-weight-bold">
+                    Text
+                </dt>
+                <dd class="col-sm-9">
+                    @position.Text
+                </dd>
+            }
+
+            <dt class="col-sm-3 text-right font-weight-bold">
+                Date d'Impression
+            </dt>
+            <dd class="col-sm-9">
+                @Model.DateImpression.ToString("g")
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-4 text-center">
+    <a asp-action="Index" class="btn btn-secondary btn-lg rounded-pill">
+        <i class="fas fa-arrow-left"></i> Back to List
+    </a>
+</div>
+
+<style>
+    .card {
+        border: 1px solid #004080;
+    }
+
+    .card-title {
+        color: #004080;
+    }
+
+    .font-weight-bold {
+        color: #004080;
+    }
+
+    .btn-secondary {
+        background-color: #004080;
+        border-color: #004080;
+    }
+
+        .btn-secondary:hover {
+            background-color: #00264d;
+            border-color: #00264d;
+        }
+
+    .rounded-pill {
+        border-radius: 50px !important;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />

@@ -1,0 +1,81 @@
+﻿@inject SignInManager<IdentityUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<ul class="nav nav-pills flex-column poste-nav">
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">
+            <i class="bi bi-person-circle"></i> Profile
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">
+            <i class="bi bi-envelope"></i> Email
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">
+            <i class="bi bi-lock"></i> Password
+        </a>
+    </li>
+    @if (hasExternalLogins)
+    {
+        <li id="external-logins" class="nav-item">
+            <a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">
+                <i class="bi bi-box-arrow-in-right"></i> External logins
+            </a>
+        </li>
+    }
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">
+            <i class="bi bi-shield-lock"></i> Two-factor authentication
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">
+            <i class="bi bi-file-person"></i> Personal data
+        </a>
+    </li>
+</ul>
+
+<style>
+    /* Style principal inspiré de La Poste Tunisienne */
+    .poste-nav .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        font-size: 1.1rem;
+        color: #0056b3; /* Bleu royal */
+        background-color: #fefefe; /* Blanc cassé pour contraste */
+        border: 1px solid #0056b3;
+        border-radius: 0.5rem;
+        margin-bottom: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+        .poste-nav .nav-link i {
+            margin-right: 0.5rem;
+            font-size: 1.3rem;
+            color: #fbc531; /* Jaune vif */
+        }
+
+        .poste-nav .nav-link:hover {
+            background-color: #0056b3; /* Bleu royal */
+            color: white;
+        }
+
+            .poste-nav .nav-link:hover i {
+                color: white;
+            }
+
+        .poste-nav .nav-link.active {
+            background-color: #fbc531; /* Jaune vif */
+            color: #0056b3;
+            font-weight: bold;
+            border: 1px solid #fbc531;
+        }
+
+            .poste-nav .nav-link.active i {
+                color: #0056b3;
+            }
+</style>

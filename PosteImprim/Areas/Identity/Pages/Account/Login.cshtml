@@ -1,0 +1,88 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="container-fluid vh-100 d-flex justify-content-center align-items-center" style="background-color: #f0f8ff;">
+    <div class="row w-75 shadow-lg p-4 rounded bg-light" style="opacity: 0.95;">
+        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
+            <h1 class="text-center text-secondary mb-4">@ViewData["Title"]</h1>
+            <form id="account" method="post" class="w-100 p-4 rounded" style="background-color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h2 class="text-center mb-4" style="color: #6c63ff;">Connexion</h2>
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3 position-relative">
+                    <input asp-for="Input.Password" id="password" class="form-control" autocomplete="current-password" placeholder="password" type="password" />
+                    <label asp-for="Input.Password">Mot de passe</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <i class="fas fa-eye position-absolute" id="togglePassword" style="right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                    <label asp-for="Input.RememberMe" class="form-check-label">Se souvenir de moi</label>
+                </div>
+                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary rounded-pill dynamic-button">Se connecter</button>
+                <div class="mt-3 text-center">
+                    <p><a id="forgot-password" asp-page="./ForgotPassword" class="text-secondary">Mot de passe oublié?</a></p>
+                    <p><a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-secondary">S’inscrire</a></p>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
+            <section class="p-4 text-center bg-white rounded shadow-sm" style="border-left: 5px solid #6c63ff;">
+                <h3 class="text-secondary mb-4">Reporter un problème</h3>
+                <p class="mb-3">Si vous rencontrez des problèmes, contactez-nous via :</p>
+                <a href="https://www.poste.tn/contact.php?code_menu=8" class="btn btn-outline-secondary rounded-pill">Assistance technique</a>
+            </section>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-floating > .form-control {
+        border-radius: 0.75rem;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+    }
+
+    .dynamic-button {
+        transition: all 0.3s ease;
+    }
+
+        .dynamic-button:hover {
+            background-color: #5a5cff;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(90, 92, 255, 0.3);
+        }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            // Toggle the type attribute between password and text
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            // Toggle the eye icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />

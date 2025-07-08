@@ -1,0 +1,57 @@
+﻿/* Navbar et éléments de la navbar */
+.navbar { 
+    background-color: #003366 !important; /* Fond bleu de la navbar */
+}
+
+    .navbar .navbar-nav .nav-link {
+        color: white !important; /* Tous les liens dans la navbar deviennent blancs */
+    }
+
+/* Survol des liens */
+.navbar-nav .nav-link:hover {
+    color: #ffc107 !important; /* Couleur dorée au survol */
+}
+
+/* Spécifique au bouton "Logout" */
+#logout {
+    color: white !important; /* Texte blanc pour le bouton "Logout" */
+    background-color: transparent; /* Pas de fond pour le bouton */
+    border: none; /* Enlever la bordure */
+}
+
+    #logout:hover {
+        color: #ffc107 !important; /* Couleur dorée au survol pour le bouton Logout */
+        cursor: pointer;
+    }
+
+/* Texte "Hello" dans le partial */
+#manage {
+    color: white !important; /* Assurez-vous que le texte "Hello" est en blanc */
+}
+
+/* Styles généraux */
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #003366;
+    color: white;
+}
+
+    .footer a {
+        color: white;
+    }
+
+        .footer a:hover {
+            color: #ffc107;
+        }
+
+    .footer p {
+        color: white; /* Assure que tout le texte dans le footer soit en blanc */
+    }
+

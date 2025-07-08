@@ -1,0 +1,195 @@
+﻿@{
+    ViewData["Title"] = "Projet Poste Tunisienne";
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Section principale */
+        .hero-section {
+            height: 50vh;
+            background-image: url('/images/With_Gaza.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .hero-section:hover {
+                transform: scale(1.02);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            }
+
+        /* Couche transparente au milieu */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.5); /* Couche semi-transparente */
+            padding: 20px 40px;
+            border-radius: 10px;
+            color: white;
+        }
+
+            .hero-content h1 {
+                font-weight: bold;
+                font-size: 3rem;
+                margin-bottom: 10px;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+                margin: 0;
+            }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        /* Conteneur des cartes */
+        .feature-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .feature-card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .feature-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1;
+            }
+
+            .feature-card .content {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+                padding: 15px;
+                color: white;
+                z-index: 2;
+                text-align: center;
+            }
+
+            .feature-card h3 {
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-bottom: 10px;
+                color: #ffc107;
+            }
+
+            .feature-card p {
+                font-size: 1rem;
+                color: #f8f9fa;
+            }
+
+            .feature-card a {
+                text-decoration: none;
+                color: #ffc107;
+                font-weight: bold;
+            }
+
+                .feature-card a:hover {
+                    text-decoration: underline;
+                }
+
+        /* Styles spécifiques pour les cartes */
+        .mission {
+            background-image: url('/images/mission.png');
+        }
+
+        .vision {
+            background-image: url('/images/Who-We-Are_Vision.jpg');
+        }
+
+        .news {
+            background-image: url('/images/jaw.jpg');
+        }
+    </style>
+</head>
+<body>
+    <!-- Section principale avec image et texte -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>@ViewData["Title"]</h1>
+            <p>Bienvenue sur Tunisian PostImprim</p>
+        </div>
+    </div>
+
+    <!-- Section avec 3 cartes -->
+    <div class="container my-5">
+        <div class="feature-container">
+            <!-- Mission -->
+            <div class="feature-card mission">
+                <div class="content">
+                    <h3>Mission</h3>
+                    <p>La Poste Tunisienne s'engage à fournir des services postaux innovants et de haute qualité, adaptés aux besoins de la société et des entreprises.</p>
+                </div>
+            </div>
+
+            <!-- Vision -->
+            <div class="feature-card vision">
+                <div class="content">
+                    <h3>Vision</h3>
+                    <p>Devenir un leader des services postaux et numériques tout en contribuant au développement économique et social.</p>
+                </div>
+            </div>
+
+            <!-- Actualités -->
+            <div class="feature-card news">
+                <div class="content">
+                    <h3>Actualités</h3>
+                    <p>Découvrez les dernières mises à jour et actualités.</p>
+                    <a href="https://www.poste.tn/actualites.php" target="_blank">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts requis pour Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
